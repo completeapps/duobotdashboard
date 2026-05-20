@@ -1,79 +1,138 @@
 (function () {
   const titleEl = document.getElementById('heroTitle');
   const subtitleEl = document.getElementById('heroSubtitle');
-  const gridEl = document.getElementById('mainGrid');
+  const botList = document.getElementById('botList');
+  const dashList = document.getElementById('dashList');
 
-  if (!titleEl || !subtitleEl || !gridEl) return;
+  if (!titleEl || !subtitleEl || !botList || !dashList) return;
 
   titleEl.textContent = 'Changelog';
   subtitleEl.textContent = 'History of Duo Bot and dashboard updates.';
 
-  gridEl.classList.add('two-column');
+  // Data: edit here when you add new versions
+  const botEntries = [
+    {
+      version: 'Duo Bot – v1.1',
+      date: 'October 31, 2025',
+      points: [
+        'Updated bot commands.',
+        'Added new commands.',
+        'Started integrating reading of /msg commands.',
+        'Began adding playtime tracking.',
+        'Created website.'
+      ],
+      emphasis: true
+    },
+    {
+      version: 'Duo Bot – v1.0',
+      date: 'October 30, 2025',
+      points: [
+        'Initial creation of Duo_Bot script and Google Site.',
+        'Bot can join server and register/login.',
+        'Responds to basic commands.',
+        'Tracks registration progress.'
+      ],
+      emphasis: false
+    }
+  ];
 
-  gridEl.innerHTML = `
-    <!-- Duo Bot script changelog -->
-    <article class="card card-emphasis">
-      <h2 class="card-title">Duo Bot – v1.1</h2>
-      <p class="hero-subtitle" style="margin-top:0.35rem;">
-        October 31, 2025
-      </p>
-      <ul class="meta-list" style="margin-top:0.75rem;">
-        <li><span class="meta-value">Updated bot commands.</span></li>
-        <li><span class="meta-value">Added new commands.</span></li>
-        <li><span class="meta-value">Started integrating reading of /msg commands.</span></li>
-        <li><span class="meta-value">Began adding playtime tracking.</span></li>
-        <li><span class="meta-value">Created website.</span></li>
-      </ul>
-    </article>
+  const dashEntries = [
+    {
+      version: 'Dashboard – v0.2',
+      date: 'November 4, 2025',
+      points: [
+        'Created logo.',
+        'Changed Home page.',
+        'Added Groups page.',
+        'Added Changelog page.',
+        'Added Dashboard Updates page.',
+        'Added Commands page.',
+        'Added Stats page.'
+      ],
+      emphasis: true
+    },
+    {
+      version: 'Dashboard – v0.1',
+      date: 'October 31, 2025',
+      points: [
+        'Created the Duo Bot dashboard website.',
+        'Initial setup and layout completed.',
+        'Ready for future update tracking.'
+      ],
+      emphasis: false
+    }
+  ];
 
-    <article class="card">
-      <h2 class="card-title">Duo Bot – v1.0</h2>
-      <p class="hero-subtitle" style="margin-top:0.35rem;">
-        October 30, 2025
-      </p>
-      <ul class="meta-list" style="margin-top:0.75rem;">
-        <li><span class="meta-value">Initial creation of Duo_Bot script and Google Site.</span></li>
-        <li><span class="meta-value">Bot can join server and register/login.</span></li>
-        <li><span class="meta-value">Responds to basic commands.</span></li>
-        <li><span class="meta-value">Tracks registration progress.</span></li>
-      </ul>
-    </article>
+  function renderEntry(entry) {
+    const emphasisClass = entry.emphasis ? ' card-emphasis' : '';
+    const pointsHtml = entry.points
+      .map(p => `<li><span class="meta-value">${p}</span></li>`)
+      .join('');
 
-    <!-- Dashboard updates -->
-    <article class="card card-emphasis">
-      <h2 class="card-title">Dashboard – v0.2</h2>
-      <p class="hero-subtitle" style="margin-top:0.35rem;">
-        November 4, 2025
-      </p>
-      <ul class="meta-list" style="margin-top:0.75rem;">
-        <li><span class="meta-value">Created logo.</span></li>
-        <li><span class="meta-value">Changed Home page.</span></li>
-        <li><span class="meta-value">Added Groups page.</span></li>
-        <li><span class="meta-value">Added Changelog page.</span></li>
-        <li><span class="meta-value">Added Dashboard Updates page.</span></li>
-        <li><span class="meta-value">Added Commands page.</span></li>
-        <li><span class="meta-value">Added Stats page.</span></li>
-      </ul>
-    </article>
+    return `
+      <article class="card${emphasisClass}">
+        <h2 class="card-title">${entry.version}</h2>
+        <p class="hero-subtitle" style="margin-top:0.35rem;">
+          ${entry.date}
+        </p>
+        <ul class="meta-list" style="margin-top:0.75rem;">
+          ${pointsHtml}
+        </ul>
+      </article>
+    `;
+  }
 
-    <article class="card">
-      <h2 class="card-title">Dashboard – v0.1</h2>
-      <p class="hero-subtitle" style="margin-top:0.35rem;">
-        October 31, 2025
-      </p>
-      <ul class="meta-list" style="margin-top:0.75rem;">
-        <li><span class="meta-value">Created the Duo Bot dashboard website.</span></li>
-        <li><span class="meta-value">Initial setup and layout completed.</span></li>
-        <li><span class="meta-value">Ready for future update tracking.</span></li>
-      </ul>
-    </article>
+  let botOrderNewestFirst = true;
+  let dashOrderNewestFirst = true;
 
-    <!-- Current work box -->
-    <article class="card card-emphasis" style="grid-column: 1 / -1;">
-      <h2 class="card-title">In Progress</h2>
-      <p class="hero-subtitle" style="margin-top:0.35rem;">
-        Transferring Website to GitHub and Redesign of the style.
-      </p>
-    </article>
-  `;
+  function renderBotColumn() {
+    const entries = botOrderNewestFirst
+      ? [...botEntries]
+      : [...botEntries].reverse();
+
+    botList.innerHTML = entries.map(renderEntry).join('');
+  }
+
+  function renderDashColumn() {
+    const entries = dashOrderNewestFirst
+      ? [...dashEntries]
+      : [...dashEntries].reverse();
+
+    dashList.innerHTML =
+      entries.map(renderEntry).join('') +
+      `
+      <article class="card card-emphasis">
+        <h2 class="card-title">In Progress</h2>
+        <p class="hero-subtitle" style="margin-top:0.35rem;">
+          Transferring Website to GitHub and Redesign of the style.
+        </p>
+      </article>
+    `;
+  }
+
+  // Initial render
+  renderBotColumn();
+  renderDashColumn();
+
+  // Wire up order toggle buttons
+  const orderButtons = document.querySelectorAll('.order-toggle');
+
+  orderButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      if (target === 'bot') {
+        botOrderNewestFirst = !botOrderNewestFirst;
+        btn.textContent = botOrderNewestFirst
+          ? 'Order: Newest → Oldest'
+          : 'Order: Oldest → Newest';
+        renderBotColumn();
+      } else if (target === 'dash') {
+        dashOrderNewestFirst = !dashOrderNewestFirst;
+        btn.textContent = dashOrderNewestFirst
+          ? 'Order: Newest → Oldest'
+          : 'Order: Oldest → Newest';
+        renderDashColumn();
+      }
+    });
+  });
 })();
