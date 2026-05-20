@@ -15,16 +15,23 @@ function closeNav() {
   menuToggle.classList.remove('open');
 }
 
-menuToggle.addEventListener('click', () => {
-  if (sideNav.classList.contains('open')) {
-    closeNav();
-  } else {
-    openNav();
-  }
-});
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    if (sideNav.classList.contains('open')) {
+      closeNav();
+    } else {
+      openNav();
+    }
+  });
+}
 
-sideNavClose.addEventListener('click', closeNav);
-sideNavBackdrop.addEventListener('click', closeNav);
+if (sideNavClose) {
+  sideNavClose.addEventListener('click', closeNav);
+}
+
+if (sideNavBackdrop) {
+  sideNavBackdrop.addEventListener('click', closeNav);
+}
 
 // Groups dropdown
 const groupToggle = document.querySelector('.nav-group-toggle');
