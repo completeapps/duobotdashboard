@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Duo Bot Dashboard – Changelog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="changelog">
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="logo-mark"></span>
+      <span class="site-title">Duo Bot Dashboard</span>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-inner">
+      <div class="side-nav-header">
+        <span class="side-nav-title">Navigation</span>
+        <button class="side-nav-close" id="sideNavClose" aria-label="Close navigation">×</button>
+      </div>
+      <ul class="side-nav-links">
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li class="nav-group">
+          <button class="nav-group-toggle" type="button">
+            <span>Groups</span>
+            <span class="nav-group-caret">▾</span>
+          </button>
+          <ul class="nav-group-menu">
+            <li><a href="groups.html" data-nav="groups">All Groups</a></li>
+            <li><a href="tsc.html" data-nav="tsc">TSC</a></li>
+          </ul>
+        </li>
+        <li><a href="changelog.html" data-nav="changelog">Changelog</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="side-nav-backdrop" id="sideNavBackdrop"></div>
+
+  <main class="page">
+    <section class="hero">
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-subtitle" id="heroSubtitle"></p>
+    </section>
+
+    <section class="grid two-column" id="mainGrid">
+      <!-- Cards injected -->
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="content-changelog.js"></script>
+</body>
+</html>
