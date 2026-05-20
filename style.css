@@ -44,6 +44,8 @@ body {
   gap: 0.75rem;
 }
 
+/* Logo uses unnamed.jpg */
+
 .logo-mark {
   display: inline-flex;
   align-items: center;
@@ -52,10 +54,15 @@ body {
   height: 30px;
   border-radius: 999px;
   border: 1px solid var(--accent-red);
-  color: var(--accent-red);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.logo-mark::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url("unnamed.jpg") center/cover no-repeat;
 }
 
 .site-title {
@@ -88,16 +95,16 @@ body {
   transform: rotate(90deg);
 }
 
-/* Side nav */
+/* Side nav on the right */
 
 .side-nav {
   position: fixed;
-  inset: 0 auto 0 0;
+  inset: 0 0 0 auto;
   width: 260px;
-  transform: translateX(-100%);
-  transition: transform 0.2s ease-out;
+  transform: translateX(100%);
+  transition: transform 0.25s ease-out;
   background: var(--bg);
-  border-right: 1px solid var(--border-soft);
+  border-left: 1px solid var(--border-soft);
   z-index: 20;
 }
 
@@ -194,10 +201,16 @@ body {
   padding-left: 0.5rem;
   padding-top: 0.25rem;
   display: none;
+  transform-origin: top;
+  transform: translateY(-4px);
+  opacity: 0;
+  transition: transform 0.16s ease-out, opacity 0.16s ease-out;
 }
 
 .nav-group-menu.open {
   display: block;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .nav-group-caret {
@@ -261,13 +274,20 @@ body {
   }
 }
 
-/* Cards */
+/* Cards + motion */
 
 .card {
   background: var(--bg-elevated);
   border-radius: 0.85rem;
   border: 1px solid var(--border-soft);
   padding: 1.25rem 1.5rem;
+  transition: transform 0.16s ease-out, border-color 0.16s ease-out, box-shadow 0.16s ease-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-red-soft);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 .card-emphasis {
@@ -312,10 +332,41 @@ body {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Subtle pulse for offline */
 
 .status-offline {
   color: var(--accent-red);
   border: 1px solid var(--accent-red-soft);
   background: #19070a;
+}
+
+.status-offline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 30, 45, 0.32), transparent 65%);
+  opacity: 0;
+  animation: offlinePulse 2.2s infinite;
+}
+
+@keyframes offlinePulse {
+  0% { opacity: 0; transform: scale(0.8); }
+  35% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* Responsive tweak */
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .page {
+    padding-top: 3rem;
+  }
 }
