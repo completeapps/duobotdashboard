@@ -11,12 +11,12 @@
   gridEl.classList.add('two-column');
 
   gridEl.innerHTML = `
-    <article class="card card-emphasis">
+    <a href="tsc.html" class="card card-emphasis" style="text-decoration:none; color:inherit;">
       <h2 class="card-title">TSC</h2>
       <p class="hero-subtitle" style="margin-top:0.35rem;">
         Primary group associated with Duo Bot.
       </p>
-    </article>
+    </a>
 
     <article class="card">
       <h2 class="card-title">Reserved Slot</h2>
