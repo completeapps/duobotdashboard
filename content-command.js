@@ -1,4 +1,4 @@
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
   const titleEl = document.getElementById('heroTitle');
   const subtitleEl = document.getElementById('heroSubtitle');
   const tableBody = document.getElementById('commandsTableBody');
@@ -6,16 +6,17 @@
   const adminStatus = document.getElementById('adminStatus');
   const adminUnlockBtn = document.getElementById('adminUnlockBtn');
 
-  if (!titleEl || !subtitleEl || !tableBody || !adminStatus || !adminUnlockBtn) return;
+  if (!titleEl || !subtitleEl || !tableBody || !adminStatus || !adminUnlockBtn) {
+    return;
+  }
 
   titleEl.textContent = 'Commands';
   subtitleEl.textContent = 'Documented commands for Duo Bot. Some commands are still being developed.';
 
   const ADMIN_PASSWORD = '0000';
 
-  // Command data
   const commands = [
-    // Your existing commands (available)
+    // Existing commands
     { name: '!dox', category: 'info', status: 'available', adminOnly: false,
       desc: 'Returns collected information on the current player (concept/debug use only).' },
     { name: '!health', category: 'info', status: 'available', adminOnly: false,
@@ -39,7 +40,7 @@
     { name: '!path <x> <y> <z>', category: 'movement', status: 'available', adminOnly: false,
       desc: 'Pathfinds to the given coordinates.' },
 
-    // Extra info/utility commands (planned)
+    // Info / utility (planned)
     { name: '!time', category: 'info', status: 'planned', adminOnly: false,
       desc: 'Shows the current in-game time (planned, not implemented yet).' },
     { name: '!whereami', category: 'info', status: 'planned', adminOnly: false,
@@ -58,10 +59,32 @@
       desc: 'Shows when Duo Bot last saw the player (planned).' },
     { name: '!afk', category: 'info', status: 'planned', adminOnly: false,
       desc: 'Marks Duo Bot as AFK and sends an auto-response (planned).' },
+
+    // Movement (planned)
     { name: '!return', category: 'movement', status: 'planned', adminOnly: false,
       desc: 'Returns to the last saved safe position (planned).' },
+    { name: '!follow <player>', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Follows a player around the world (planned).' },
+    { name: '!guard <player>', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Stays near and protects a player (planned).' },
+    { name: '!circle <player>', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Circles around the player at a small radius (planned).' },
+    { name: '!goto <player>', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Pathfinds to the player’s location (planned).' },
+    { name: '!patrol', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Walks a predefined patrol route (planned).' },
+    { name: '!mine', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Mines a region or ore vein (planned).' },
+    { name: '!farm', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Harvests and replants crops in an area (planned).' },
+    { name: '!bridge', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Builds a simple bridge in front of the bot (planned).' },
+    { name: '!tower', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Builds a quick tower upward (planned).' },
+    { name: '!descend', category: 'movement', status: 'planned', adminOnly: false,
+      desc: 'Safely moves downward (planned).' },
 
-    // Extra fun/social commands (planned)
+    // Fun (planned)
     { name: '!roast <player>', category: 'fun', status: 'planned', adminOnly: false,
       desc: 'Drops a random roast on the targeted player (planned).' },
     { name: '!compliment <player>', category: 'fun', status: 'planned', adminOnly: false,
@@ -83,29 +106,7 @@
     { name: '!song', category: 'fun', status: 'planned', adminOnly: false,
       desc: 'Prints lyrics or song lines (planned).' },
 
-    // Extra movement commands (planned)
-    { name: '!follow <player>', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Follows a player around the world (planned).' },
-    { name: '!guard <player>', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Stays near and protects a player (planned).' },
-    { name: '!circle <player>', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Circles around the player at a small radius (planned).' },
-    { name: '!goto <player>', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Pathfinds to the player’s location (planned).' },
-    { name: '!patrol', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Walks a predefined patrol route (planned).' },
-    { name: '!mine', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Mines a region or vein (planned).' },
-    { name: '!farm', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Harvests and replants crops in an area (planned).' },
-    { name: '!bridge', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Builds a simple bridge in front of the bot (planned).' },
-    { name: '!tower', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Builds a quick tower upward (planned).' },
-    { name: '!descend', category: 'movement', status: 'planned', adminOnly: false,
-      desc: 'Safely moves downward (planned).' },
-
-    // Admin commands (only visible when unlocked)
+    // Admin (planned, hidden until unlocked)
     { name: '!shutdown', category: 'admin', status: 'planned', adminOnly: true,
       desc: 'Safely disconnects Duo Bot from the server (admin only, planned).' },
     { name: '!restart', category: 'admin', status: 'planned', adminOnly: true,
@@ -131,21 +132,18 @@
   let currentFilter = 'all';
   let adminUnlocked = false;
 
-  // Load admin state from localStorage
   try {
     adminUnlocked = localStorage.getItem('duobotAdmin') === 'true';
   } catch (e) {
     adminUnlocked = false;
   }
 
-  function updateAdminStatus() {
-    if (adminUnlocked) {
-      adminStatus.textContent = 'Admin view: Unlocked';
-      adminStatus.classList.add('admin-on');
-    } else {
-      adminStatus.textContent = 'Admin view: Locked';
-      adminStatus.classList.remove('admin-on');
-    }
+  function formatCategory(cat) {
+    if (cat === 'info') return 'Info / Utility';
+    if (cat === 'fun') return 'Fun / Social';
+    if (cat === 'movement') return 'Movement';
+    if (cat === 'admin') return 'Admin';
+    return cat;
   }
 
   function renderCommands() {
@@ -156,19 +154,19 @@
         return cmd.category === currentFilter;
       })
       .map(cmd => {
-        const statusClass =
-          cmd.status === 'available'
-            ? 'command-status-available'
-            : cmd.category === 'admin'
-            ? 'command-status-admin'
-            : 'command-status-planned';
+        let statusClass;
+        let statusLabel;
 
-        const statusLabel =
-          cmd.status === 'available'
-            ? 'Available'
-            : cmd.category === 'admin'
-            ? 'Admin / Planned'
-            : 'Planned';
+        if (cmd.status === 'available') {
+          statusClass = 'command-status-available';
+          statusLabel = 'Available';
+        } else if (cmd.category === 'admin') {
+          statusClass = 'command-status-admin';
+          statusLabel = 'Admin / Planned';
+        } else {
+          statusClass = 'command-status-planned';
+          statusLabel = 'Planned';
+        }
 
         return `
           <div class="command-row">
@@ -184,17 +182,17 @@
     tableBody.innerHTML = rows;
   }
 
-  function formatCategory(cat) {
-    switch (cat) {
-      case 'info': return 'Info / Utility';
-      case 'fun': return 'Fun / Social';
-      case 'movement': return 'Movement';
-      case 'admin': return 'Admin';
-      default: return cat;
+  function updateAdminStatus() {
+    if (adminUnlocked) {
+      adminStatus.textContent = 'Admin view: Unlocked';
+      adminStatus.classList.add('admin-on');
+    } else {
+      adminStatus.textContent = 'Admin view: Locked';
+      adminStatus.classList.remove('admin-on');
     }
   }
 
-  // Filters
+  // Filter buttons
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
@@ -204,7 +202,7 @@
     });
   });
 
-  // Admin unlock
+  // Admin unlock button
   adminUnlockBtn.addEventListener('click', () => {
     const input = prompt('Enter admin password:');
     if (input === null) return;
@@ -222,4 +220,4 @@
 
   updateAdminStatus();
   renderCommands();
-})();
+});
