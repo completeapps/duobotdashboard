@@ -8,10 +8,10 @@
 </head>
 <body data-page="changelog">
   <header class="top-bar">
-    <div class="top-bar-left">
+    <a href="index.html" class="top-bar-left">
       <span class="logo-mark"></span>
       <span class="site-title">Duo Bot Dashboard</span>
-    </div>
+    </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
       <span></span>
       <span></span>
@@ -49,17 +49,29 @@
       <p class="hero-subtitle" id="heroSubtitle"></p>
     </section>
 
-    <section class="grid two-column" id="mainGrid">
-      <!-- Cards injected -->
-    </section>
-  </main>
+    <section class="changelog-grid" id="changelogGrid">
+      <div class="changelog-column" id="botColumn">
+        <div class="changelog-column-header">
+          <h2>Duo Bot</h2>
+          <button class="order-toggle" data-target="bot">Order: Newest → Oldest</button>
+        </div>
+        <div class="changelog-column-list" id="botList">
+          <!-- Bot cards injected -->
+        </div>
+      </div>
 
-  <script src="script.js"></script>
-  <script src="content-changelog.js"></script>
-</body>
-</html>
-  <main class="page">
-    <!-- ... existing content ... -->
+      <div class="changelog-divider"></div>
+
+      <div class="changelog-column" id="dashColumn">
+        <div class="changelog-column-header">
+          <h2>Dashboard</h2>
+          <button class="order-toggle" data-target="dash">Order: Newest → Oldest</button>
+        </div>
+        <div class="changelog-column-list" id="dashList">
+          <!-- Dashboard cards injected -->
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -67,6 +79,6 @@
   </footer>
 
   <script src="script.js"></script>
-  <!-- content-*.js here -->
+  <script src="content-changelog.js"></script>
 </body>
 </html>
