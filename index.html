@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Duo Bot Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="logo-mark">DB</span>
+      <span class="site-title">Duo Bot Dashboard</span>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Slide-out Navigation -->
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-inner">
+      <div class="side-nav-header">
+        <span class="side-nav-title">Navigation</span>
+        <button class="side-nav-close" id="sideNavClose" aria-label="Close navigation">×</button>
+      </div>
+      <ul class="side-nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <!-- Add more pages later, e.g.: -->
+        <!-- <li><a href="commands.html">Commands</a></li>
+        <li><a href="status.html">Status</a></li> -->
+      </ul>
+    </div>
+  </nav>
+  <div class="side-nav-backdrop" id="sideNavBackdrop"></div>
+
+  <!-- Main Content -->
+  <main class="page">
+    <section class="hero">
+      <h1 class="hero-title">Duo Bot Dashboard</h1>
+      <p class="hero-subtitle">Welcome to the Duo Bot Dashboard!</p>
+    </section>
+
+    <section class="grid">
+      <!-- Bot Overview card -->
+      <article class="card card-emphasis">
+        <h2 class="card-title">Bot Overview</h2>
+        <ul class="meta-list">
+          <li><span class="meta-label">Creator:</span> <span class="meta-value">DouOiledUp</span></li>
+          <li><span class="meta-label">Version:</span> <span class="meta-value">v1.1</span></li>
+          <li>
+            <span class="meta-label">Status:</span>
+            <span class="meta-value status-badge status-offline">Not Functioning</span>
+          </li>
+          <li><span class="meta-label">Active Since:</span> <span class="meta-value">October 30, 2025</span></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
