@@ -22,6 +22,8 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
   background: var(--bg);
   color: var(--text-main);
+  display: flex;
+  flex-direction: column;
 }
 
 /* Top bar */
@@ -42,6 +44,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Logo uses unnamed.jpg */
@@ -238,8 +242,10 @@ body {
 
 .page {
   max-width: 960px;
+  width: 100%;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 3rem;
+  flex: 1 0 auto;
 }
 
 .hero {
@@ -357,6 +363,88 @@ body {
   0% { opacity: 0; transform: scale(0.8); }
   35% { opacity: 1; transform: scale(1); }
   100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* Changelog specific layout */
+
+.changelog-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.changelog-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.changelog-divider {
+  width: 1px;
+  height: 100%;
+  background: var(--border-soft);
+  opacity: 0.8;
+}
+
+.changelog-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.changelog-column-header h2 {
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.order-toggle {
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.order-toggle:hover {
+  border-color: var(--accent-red-soft);
+  color: var(--accent-white);
+}
+
+.changelog-column-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* On small screens, stack columns */
+@media (max-width: 720px) {
+  .changelog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .changelog-divider {
+    display: none;
+  }
+}
+
+/* Footer */
+
+.site-footer {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-soft);
+  flex-shrink: 0;
 }
 
 /* Responsive tweak */
