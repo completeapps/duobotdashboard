@@ -5,11 +5,10 @@
 
   if (!titleEl || !subtitleEl || !gridEl) return;
 
-  // You can edit these strings any time without touching HTML
   titleEl.textContent = 'Duo Bot Dashboard';
   subtitleEl.textContent = 'Welcome to the Duo Bot Dashboard!';
 
-  gridEl.classList.remove('two-column'); // single column for now
+  gridEl.classList.remove('two-column');
 
   gridEl.innerHTML = `
     <article class="card card-emphasis">
