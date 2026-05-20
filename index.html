@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="home">
   <!-- Top Bar -->
   <header class="top-bar">
     <div class="top-bar-left">
@@ -20,7 +20,7 @@
     </button>
   </header>
 
-  <!-- Slide-out Navigation -->
+  <!-- Side Navigation -->
   <nav class="side-nav" id="sideNav">
     <div class="side-nav-inner">
       <div class="side-nav-header">
@@ -28,10 +28,17 @@
         <button class="side-nav-close" id="sideNavClose" aria-label="Close navigation">×</button>
       </div>
       <ul class="side-nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <!-- Add more pages later, e.g.: -->
-        <!-- <li><a href="commands.html">Commands</a></li>
-        <li><a href="status.html">Status</a></li> -->
+        <li><a href="index.html" data-nav="home">Home</a></li>
+        <li class="nav-group">
+          <button class="nav-group-toggle" type="button">
+            <span>Groups</span>
+            <span class="nav-group-caret">▾</span>
+          </button>
+          <ul class="nav-group-menu">
+            <li><a href="groups.html" data-nav="groups">All Groups</a></li>
+            <li><a href="tsc.html" data-nav="tsc">TSC</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </nav>
@@ -40,27 +47,17 @@
   <!-- Main Content -->
   <main class="page">
     <section class="hero">
-      <h1 class="hero-title">Duo Bot Dashboard</h1>
-      <p class="hero-subtitle">Welcome to the Duo Bot Dashboard!</p>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-subtitle" id="heroSubtitle"></p>
     </section>
 
-    <section class="grid">
-      <!-- Bot Overview card -->
-      <article class="card card-emphasis">
-        <h2 class="card-title">Bot Overview</h2>
-        <ul class="meta-list">
-          <li><span class="meta-label">Creator:</span> <span class="meta-value">DouOiledUp</span></li>
-          <li><span class="meta-label">Version:</span> <span class="meta-value">v1.1</span></li>
-          <li>
-            <span class="meta-label">Status:</span>
-            <span class="meta-value status-badge status-offline">Not Functioning</span>
-          </li>
-          <li><span class="meta-label">Active Since:</span> <span class="meta-value">October 30, 2025</span></li>
-        </ul>
-      </article>
+    <section class="grid" id="mainGrid">
+      <!-- Cards injected by content JS -->
     </section>
   </main>
 
+  <!-- Core behavior + per-page content -->
   <script src="script.js"></script>
+  <script src="content-home.js"></script>
 </body>
 </html>
